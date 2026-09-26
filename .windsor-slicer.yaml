@@ -1,0 +1,6 @@
+version: 1
+models:
+  fixture-cube:
+    source: cube.stl
+    generator: copy
+    output: cube.stl
