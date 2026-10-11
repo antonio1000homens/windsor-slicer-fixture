@@ -1,6 +1,7 @@
 /*
   Snap-lock cap for round steel tube with TWO opposed retaining holes.
-  User measured tube ID = 35mm. Hole distance and OD are photo estimates.
+  User measured tube ID = 35mm and nearest hole edge 9.5mm from rim.
+  Tube OD and hole length/width remain unverified.
   The cap and tabs must not be used as safety-critical structural fittings.
   Print flange down, tube insert up, no supports; PETG or ASA.
 */
@@ -12,12 +13,13 @@ flange_thickness = 3.0;
 insertion_depth = 30.0;            // taller than old 18mm sleeve
 sleeve_wall = 2.0;
 entry_chamfer_height = 2.0;
-// Rim -> hole centre, measured ALONG axis: PHOTO ESTIMATE; adjust for tube.
-hole_center_from_rim = 12.0;
+// Axial distance from cut tube rim to NEAREST edge of existing hole.
+// 9.5mm is the START of the hole (not its centre), user-measured.
+hole_start_from_rim = 9.5;
 latch_footprint_width = 4.0;
 latch_radial_engagement = 0.60;
-latch_shoulder_offset = 1.6;
-latch_flat_length = 2.1;
+latch_shoulder_inset = 0.4; // shoulder just inside near edge of hole
+latch_flat_length = 1.5; // spans 9.9mm to 11.4mm from rim
 latch_ramp_length = 3.5;
 snap_angle = 0;                   // rotate to align to opposed holes
 flex_arm_wall = 1.2;
@@ -30,15 +32,16 @@ assert(tube_inner_diameter > 2*sleeve_wall + 12);
 assert(tube_outer_diameter > tube_inner_diameter);
 assert(radial_clearance > 0 && radial_clearance < 1);
 assert(flex_arm_wall > 0.8 && flex_arm_wall < sleeve_wall);
-assert(insertion_depth > hole_center_from_rim + latch_flat_length + latch_ramp_length + 2);
-assert(hole_center_from_rim > slot_start_from_rim + 4);
+assert(insertion_depth > hole_start_from_rim + latch_shoulder_inset + latch_flat_length + latch_ramp_length + 2);
+assert(hole_start_from_rim > slot_start_from_rim + 4);
+assert(latch_shoulder_inset >= 0 && latch_shoulder_inset <= 1.5);
 
 plug_od = tube_inner_diameter - 2*radial_clearance;
 plug_r = plug_od/2;
 flange_od = tube_outer_diameter + 2*flange_overhang;
-cap_depth = mode == "test" ? max(21,hole_center_from_rim+7) : insertion_depth;
+cap_depth = mode == "test" ? max(21,hole_start_from_rim+latch_shoulder_inset+latch_flat_length+latch_ramp_length+3) : insertion_depth;
 catch_radius = tube_inner_diameter/2 + latch_radial_engagement;
-shoulder_z = hole_center_from_rim - latch_shoulder_offset;
+shoulder_z = hole_start_from_rim + latch_shoulder_inset;
 flat_end_z = shoulder_z + latch_flat_length;
 ramp_end_z = flat_end_z + latch_ramp_length;
 
