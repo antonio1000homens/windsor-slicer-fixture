@@ -1,6 +1,17 @@
-version: 1
+version: 2
 models:
   fixture-cube:
     source: cube.stl
     generator: copy
     output: cube.stl
+  tube-end-cap:
+    source: tube_end_cap.scad
+    generator: openscad
+    output: tube_end_cap.stl
+    variants:
+      petg-no-support:
+        machine_profile: "Bambu Lab H2D 0.4 nozzle"
+        process_profile: "0.20mm Standard @BBL H2D"
+        filament_profile: "Bambu PETG Basic @BBL H2D 0.4 nozzle"
+        bed_type: "Textured PEI Plate"
+        support_mode: "off"
