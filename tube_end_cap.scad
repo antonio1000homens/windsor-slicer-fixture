@@ -1,7 +1,7 @@
 /*
   Parametric flanged push-in cap for a thin-wall round metal tube.
-  Photo-derived starting values only. Verify actual tube INSIDE diameter with
-  calipers and adjust tube_inner_diameter before printing the final cap.
+  Tube inside diameter was confirmed by user as 35.0 mm. Outside diameter
+  remains photo-derived and must be confirmed before checking flange overlap.
 
   Printing: flange flat on build plate, plug facing up, no supports.
   Material: PETG or ASA for outdoors. Not structural or load bearing.
@@ -9,8 +9,8 @@
 */
 
 // ---- Measurements (mm) ----------------------------------------------
-tube_outer_diameter = 40.0;       // ESTIMATE from photographs, NOT a precise reading
-tube_inner_diameter = 37.4;       // ESTIMATE: check with internal caliper jaws
+tube_outer_diameter = 40.0;       // UNVERIFIED photo estimate; sets flange ONLY
+tube_inner_diameter = 35.0;       // MEASURED by user on 2026-10-11
 
 // ---- Fit settings (mm) -----------------------------------------------
 radial_clearance = 0.25;         // one side: 0.15 tight, 0.25 nominal, 0.4 loose
